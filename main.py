@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import pygame_widgets
 from pygame_widgets.button import Button
@@ -75,6 +77,9 @@ class Hoger_Lager():
         clock = pygame.time.Clock()
         hoger_lager = True
         dt = 0
+
+        nr = int(random.uniform(1, 52))
+
         while hoger_lager == True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -86,9 +91,13 @@ class Hoger_Lager():
             text_surface = my_title_font.render("SCORE", False, (0, 255, 0))
             screen.blit(text_surface, (100, 120))
 
-            card = pygame.image.load("cards/8BitDeck1.png")
+            card = pygame.image.load(f"cards/back_card.png")
             scaled_card = pygame.transform.scale(card, (360, 480))
-            screen.blit(scaled_card, (576, 250))
+            screen.blit(scaled_card, (120, 300))
+
+            card = pygame.image.load(f"cards/8BitDeck{nr}.png")
+            scaled_card = pygame.transform.scale(card, (360, 480))
+            screen.blit(scaled_card, (650, 300))
 
             pygame.display.flip()
             dt = clock.tick(60) / 1000
@@ -97,12 +106,12 @@ class Hoger_Lager():
 
 
 class Kaart:
-    def __init__(self, waarde, kleur):
+    def __init__(self, waarde, sprite):
         self.waarde = waarde
-        self.kleur = kleur
+        self.sprite = sprite
 
     def __str__(self):
-        return f"{self.naam(self.waarde)} van {self.kleur}"
+        return f"{self.naam(self.waarde)} van {self.sprite}"
 
     def naam(self, waarde):
         namen = {11: "Boer", 12: "Vrouw", 13: "Heer", 14: "Aas"}
